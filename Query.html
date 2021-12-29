@@ -1,0 +1,69 @@
+<!-- 인터넷 프로그래밍 term project -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        @import url(Desktop.css) screen and (min-width: 992px);
+        @import url(Mobile.css) screen and (max-width: 992px);
+        body{ 
+            background-color: #ffb266;
+            color: white;
+        }
+        div.title{
+            margin: 5% 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        #inputKey{
+            background-color: white; width: 40%;
+        }
+        #submit{
+            color: white; background-color: #ffb266;
+        }
+        form{
+            text-align: center;
+        }
+    </style>
+    <title>당신을 위한 책</title>
+
+    <script>
+        function findSuggest(str){
+            if (str.length == 0) { 
+                document.getElementById("suggestKeyword").innerHTML = "";
+                return;
+            }
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("suggestKeyword").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "Suggest.php?q=" + str);
+            xhttp.send();
+        }
+
+        function findPopular(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("hotKeyword").innerHTML = this.responseText;
+            };
+            xhttp.open("GET", "Popular.php");
+            xhttp.send();
+        }
+
+    </script>
+</head>
+
+<body onload="findPopular()">
+    <div class="title">당신을 위한 책</div>
+    <div class="boxWrap" style="width: 90%; margin:0 auto;">
+    <form method="post" action="cgi-bin/Search.php">
+        원하는 키워드를 입력하세요. <input type="text" id="inputKey" name="keyword" onkeyup="findSuggest(this.value)"> 
+        <input id="submit" type="submit" value="검색"> <br/>
+    </form>
+    <div class="suggest"><span style="border: white solid;">추천 키워드</span> <span id="suggestKeyword"></span></div>
+    <br/><div><span style="border: white solid;">인기 키워드</span> <span id="hotKeyword" ></span></div>
+    </div>
+</body>
+</html>

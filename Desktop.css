@@ -1,0 +1,26 @@
+div.title{
+    font-size: 4em;
+}
+
+.boxWrap{
+    font-size: 2em;
+    white-space: nowrap;
+}
+
+#submit{
+    font-size: 0.9em;
+    font-weight: 400;
+
+}
+
+#inputKey{
+    height: 2em;
+    font-size: 1em;
+    padding: 0 0.5em;
+    margin-left: 5%;
+}
+
+.suggest{
+    margin-top: 2em;;
+}
+
